@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo CRM — Gestión de clientes, e-commerce y redes sociales en un solo lugar</title>
+<style>
+  :root{
+    --bg:#fbfbfa;
+    --surface:#ffffff;
+    --border:#e8e6e1;
+    --text:#17171a;
+    --text-soft:#5c5c63;
+    --text-faint:#8b8b93;
+    --accent:#4f46e5;
+    --accent-soft:#eef0ff;
+    --accent-2:#0ea5a4;
+    --accent-2-soft:#e6f8f7;
+    --accent-3:#e0724a;
+    --accent-3-soft:#fdece3;
+    --radius:18px;
+    --shadow: 0 1px 2px rgba(20,20,25,.04), 0 12px 32px -16px rgba(20,20,25,.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,251,250,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.01em;}
+  .logo-mark{
+    width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:800;font-size:15px;
+    flex-shrink:0;
+  }
+  .nav-links{display:flex;align-items:center;gap:32px;}
+  .nav-links a{font-size:14.5px;color:var(--text-soft);font-weight:500;transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{display:flex;align-items:center;gap:12px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 20px;border-radius:999px;font-size:14.5px;font-weight:600;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, background .15s;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--text);color:#fff;}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(23,23,26,.45);}
+  .btn-ghost{background:transparent;color:var(--text-soft);border-color:var(--border);}
+  .btn-ghost:hover{color:var(--text);border-color:#cfcdc6;}
+  .btn-lg{padding:14px 26px;font-size:15.5px;}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .menu-toggle span{display:block;width:22px;height:2px;background:var(--text);margin:5px 0;border-radius:2px;}
+
+  /* Hero */
+  .hero{padding:96px 0 64px;position:relative;overflow:hidden;}
+  .hero::before{
+    content:"";position:absolute;top:-160px;right:-120px;width:520px;height:520px;
+    background:radial-gradient(circle,var(--accent-soft) 0%, transparent 70%);
+    z-index:-1;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent-soft);color:var(--accent);
+    padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;
+    margin-bottom:24px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .hero h1{
+    font-size:clamp(36px,5.2vw,60px);
+    line-height:1.06;letter-spacing:-.03em;font-weight:700;
+    max-width:820px;margin:0 0 24px;
+  }
+  .hero h1 .grad{
+    background:linear-gradient(100deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    font-size:19px;color:var(--text-soft);max-width:600px;margin:0 0 36px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+  .hero-note{font-size:13.5px;color:var(--text-faint);}
+
+  /* Hero visual */
+  .hero-visual{
+    margin-top:64px;border-radius:20px;border:1px solid var(--border);
+    background:var(--surface);box-shadow:var(--shadow);
+    padding:22px;
+  }
+  .hv-top{display:flex;align-items:center;gap:8px;margin-bottom:18px;}
+  .hv-dot{width:10px;height:10px;border-radius:50%;background:var(--border);}
+  .hv-grid{display:grid;grid-template-columns:1.1fr 1.6fr 1fr;gap:16px;}
+  .hv-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px;}
+  .hv-card h4{margin:0 0 4px;font-size:13px;color:var(--text-faint);font-weight:600;}
+  .hv-card .big{font-size:26px;font-weight:700;letter-spacing:-.02em;}
+  .hv-card .delta{font-size:12.5px;color:var(--accent-2);font-weight:600;}
+  .hv-bars{display:flex;align-items:flex-end;gap:6px;height:70px;margin-top:14px;}
+  .hv-bars span{flex:1;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:4px;opacity:.85;}
+  .hv-list{display:flex;flex-direction:column;gap:10px;}
+  .hv-row{display:flex;align-items:center;gap:10px;font-size:13.5px;}
+  .hv-avatar{width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+  .hv-row .status{margin-left:auto;font-size:11.5px;padding:3px 9px;border-radius:999px;font-weight:600;}
+  .status.won{background:var(--accent-2-soft);color:var(--accent-2);}
+  .status.new{background:var(--accent-3-soft);color:var(--accent-3);}
+  .status.mid{background:var(--accent-soft);color:var(--accent);}
+
+  /* logos */
+  .logos{padding:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .logos p{text-align:center;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin:0 0 22px;font-weight:600;}
+  .logos-row{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;opacity:.55;font-weight:700;font-size:17px;letter-spacing:-.01em;}
+
+  /* Section heading */
+  .section{padding:96px 0;}
+  .section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+  .section-head .tag{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  .section-head h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.025em;margin:0 0 16px;font-weight:700;}
+  .section-head p{color:var(--text-soft);font-size:16.5px;margin:0;}
+
+  /* Features grid */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .feature-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#dcdad3;}
+  .feature-card.core{grid-column:span 1;}
+  .f-icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;font-size:20px;
+  }
+  .f-icon.p1{background:var(--accent-soft);}
+  .f-icon.p2{background:var(--accent-2-soft);}
+  .f-icon.p3{background:var(--accent-3-soft);}
+  .feature-card h3{font-size:17.5px;margin:0 0 10px;letter-spacing:-.01em;}
+  .feature-card p{font-size:14.5px;color:var(--text-soft);margin:0 0 14px;}
+  .feature-card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+  .feature-card li{font-size:13.5px;color:var(--text-soft);display:flex;align-items:flex-start;gap:8px;}
+  .feature-card li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--text-faint);margin-top:7px;flex-shrink:0;}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+    padding:4px 10px;border-radius:999px;margin-bottom:14px;}
+  .badge.p1{background:var(--accent-soft);color:var(--accent);}
+  .badge.p2{background:var(--accent-2-soft);color:var(--accent-2);}
+  .badge.p3{background:var(--accent-3-soft);color:var(--accent-3);}
+
+  /* Stats */
+  .stats{background:var(--text);border-radius:24px;padding:56px 40px;color:#fff;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .stat{text-align:center;}
+  .stat .num{font-size:38px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(100deg,#c4b5fd,#7dd3d0);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat .lbl{font-size:13.5px;color:#c4c4cc;margin-top:6px;}
+
+  /* Steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step;}
+  .step{position:relative;padding:26px 22px 22px;background:var(--surface);border:1px solid var(--border);border-radius:16px;}
+  .step .n{
+    width:32px;height:32px;border-radius:9px;background:var(--accent-soft);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:16px;
+  }
+  .step h4{font-size:15.5px;margin:0 0 8px;}
+  .step p{font-size:13.5px;color:var(--text-soft);margin:0;}
+
+  /* Pricing */
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
+  .plan{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;}
+  .plan.featured{border-color:var(--text);box-shadow:0 20px 40px -24px rgba(23,23,26,.35);position:relative;}
+  .plan.featured::before{
+    content:"Más elegido";position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--text);color:#fff;font-size:11.5px;font-weight:700;padding:5px 14px;border-radius:999px;
+  }
+  .plan h3{font-size:16px;margin:0 0 6px;color:var(--text-soft);font-weight:600;}
+  .plan .price{font-size:38px;font-weight:700;letter-spacing:-.02em;margin:6px 0 4px;}
+  .plan .price span{font-size:14px;font-weight:500;color:var(--text-faint);}
+  .plan .desc{font-size:13.5px;color:var(--text-faint);margin:0 0 24px;}
+  .plan ul{list-style:none;margin:0 0 28px;padding:0;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .plan li{font-size:14px;display:flex;gap:10px;color:var(--text-soft);}
+  .plan li::before{content:"✓";color:var(--accent-2);font-weight:700;flex-shrink:0;}
+
+  /* CTA */
+  .cta{
+    text-align:center;background:linear-gradient(135deg,var(--accent-soft),var(--accent-2-soft));
+    border-radius:24px;padding:72px 32px;
+  }
+  .cta h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;margin:0 0 16px;}
+  .cta p{color:var(--text-soft);font-size:16px;margin:0 0 32px;}
+  .cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);padding:56px 0 32px;}
+  .foot-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:32px;margin-bottom:40px;}
+  .foot-brand p{font-size:13.5px;color:var(--text-faint);max-width:260px;margin:14px 0 0;}
+  .foot-col h5{font-size:13px;margin:0 0 16px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.05em;}
+  .foot-col a{display:block;font-size:14px;color:var(--text-soft);margin-bottom:11px;}
+  .foot-col a:hover{color:var(--text);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);font-size:13px;color:var(--text-faint);flex-wrap:wrap;gap:12px;}
+
+  @media (max-width: 900px){
+    .nav-links, .nav-cta .btn-ghost{display:none;}
+    .menu-toggle{display:block;}
+    .hv-grid{grid-template-columns:1fr;}
+    .features{grid-template-columns:1fr 1fr;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .pricing{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width: 560px){
+    .features{grid-template-columns:1fr;}
+    .stats{grid-template-columns:1fr 1fr;padding:40px 24px;}
+    .steps{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .logos-row{gap:28px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <span class="logo-mark">N</span>
+      Nexo CRM
+    </div>
+    <nav class="nav-links">
+      <a href="#features">Funciones</a>
+      <a href="#steps">Cómo funciona</a>
+      <a href="#pricing">Precios</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost">Iniciar sesión</a>
+      <a href="#pricing" class="btn btn-primary">Probar gratis</a>
+      <button class="menu-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span> Nuevo · Captación de leads desde redes sociales</span>
+      <h1>Un solo CRM para <span class="grad">clientes, ventas digitales</span> y redes sociales</h1>
+      <p class="lead">Nexo CRM centraliza tu gestión de clientes, tu tienda de productos digitales y la captación de leads desde Instagram, Facebook, TikTok y WhatsApp — todo en un panel simple y moderno.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-primary btn-lg">Empezar gratis</a>
+        <a href="#steps" class="btn btn-ghost btn-lg">Ver cómo funciona</a>
+      </div>
+      <p class="hero-note">Sin tarjeta de crédito · Configuración en menos de 10 minutos</p>
+
+      <div class="hero-visual">
+        <div class="hv-top">
+          <span class="hv-dot"></span><span class="hv-dot"></span><span class="hv-dot"></span>
+        </div>
+        <div class="hv-grid">
+          <div class="hv-card">
+            <h4>Ingresos del mes</h4>
+            <div class="big">$18.420</div>
+            <div class="delta">▲ 24% vs. mes anterior</div>
+            <div class="hv-bars">
+              <span style="height:35%"></span><span style="height:55%"></span><span style="height:40%"></span>
+              <span style="height:70%"></span><span style="height:50%"></span><span style="height:85%"></span>
+              <span style="height:65%"></span>
+            </div>
+          </div>
+          <div class="hv-card">
+            <h4>Leads recientes desde redes</h4>
+            <div class="hv-list">
+              <div class="hv-row"><span class="hv-avatar">MJ</span> María J. — Instagram Ads <span class="status new">Nuevo</span></div>
+              <div class="hv-row"><span class="hv-avatar">CP</span> Carlos P. — TikTok <span class="status mid">En proceso</span></div>
+              <div class="hv-row"><span class="hv-avatar">LR</span> Laura R. — WhatsApp <span class="status won">Ganado</span></div>
+              <div class="hv-row"><span class="hv-avatar">AS</span> Andrés S. — Facebook <span class="status new">Nuevo</span></div>
+            </div>
+          </div>
+          <div class="hv-card">
+            <h4>Producto más vendido</h4>
+            <div class="big" style="font-size:18px;">Curso "Marketing con IA"</div>
+            <div class="delta">312 ventas este mes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS -->
+  <div class="logos">
+    <div class="wrap">
+      <p>Usado por equipos de ventas y creadores digitales</p>
+      <div class="logos-row">
+        <span>Aurora</span><span>Vento</span><span>Lumen</span><span>Cursiva</span><span>Pixel&Co</span><span>Norda</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Funciones</span>
+        <h2>Todo lo que necesitas para vender y fidelizar</h2>
+        <p>Tres pilares conectados entre sí: tus clientes, tu tienda digital y tus redes sociales, dentro del mismo panel.</p>
+      </div>
+
+      <div class="features">
+        <div class="feature-card core">
+          <span class="badge p1">Núcleo</span>
+          <div class="f-icon p1">👥</div>
+          <h3>Gestión de clientes</h3>
+          <p>Una ficha única por cliente con todo su historial de compras, mensajes y notas.</p>
+          <ul>
+            <li>Pipeline de ventas visual (kanban)</li>
+            <li>Historial de compras y comunicaciones</li>
+            <li>Segmentación y etiquetas personalizadas</li>
+            <li>Recordatorios y tareas de seguimiento</li>
+          </ul>
+        </div>
+
+        <div class="feature-card core">
+          <span class="badge p2">Núcleo</span>
+          <div class="f-icon p2">🛒</div>
+          <h3>E-commerce digital</h3>
+          <p>Vende cursos, ebooks, plantillas o software directamente desde tu CRM.</p>
+          <ul>
+            <li>Catálogo de productos digitales</li>
+            <li>Entrega automática tras el pago</li>
+            <li>Pagos con tarjeta y suscripciones</li>
+            <li>Cupones, upsells y checkout propio</li>
+          </ul>
+        </div>
+
+        <div class="feature-card core">
+          <span class="badge p3">Núcleo</span>
+          <div class="f-icon p3">📣</div>
+          <h3>Redes sociales &amp; leads</h3>
+          <p>Captura leads desde Instagram, Facebook, TikTok y WhatsApp sin salir del CRM.</p>
+          <ul>
+            <li>Bandeja unificada de mensajes y comentarios</li>
+            <li>Formularios de leads conectados a tus anuncios</li>
+            <li>Respuestas rápidas y asignación automática</li>
+            <li>Conversión directa de lead a cliente</li>
+          </ul>
+        </div>
+
+        <div class="feature-card">
+          <div class="f-icon p1">🤖</div>
+          <h3>Automatización con IA</h3>
+          <p>Flujos automáticos que califican leads, envían correos de seguimiento y sugieren la próxima acción de venta.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="f-icon p2">📊</div>
+          <h3>Analítica en tiempo real</h3>
+          <p>Panel de ventas, embudo de conversión y rendimiento por canal, siempre actualizado.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="f-icon p3">🔗</div>
+          <h3>Integraciones</h3>
+          <p>Conecta WhatsApp, email marketing, calendario y tus pasarelas de pago favoritas en pocos clics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" id="steps" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Cómo funciona</span>
+        <h2>De lead en redes sociales a cliente fiel</h2>
+        <p>Cuatro pasos, un solo flujo de trabajo.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h4>Captura el lead</h4>
+          <p>Un comentario, mensaje o formulario en redes sociales entra automáticamente al CRM.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h4>Cualifica y contacta</h4>
+          <p>Se asigna al vendedor indicado y se dispara una secuencia de seguimiento.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h4>Vende el producto digital</h4>
+          <p>El cliente compra desde tu tienda integrada y recibe el acceso al instante.</p>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <h4>Fideliza</h4>
+          <p>El historial queda guardado para futuras ventas, upsells y soporte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat"><div class="num">+12.000</div><div class="lbl">Leads capturados / mes</div></div>
+        <div class="stat"><div class="num">98%</div><div class="lbl">Entregas de producto automáticas</div></div>
+        <div class="stat"><div class="num">3.2x</div><div class="lbl">Más conversión desde redes</div></div>
+        <div class="stat"><div class="num">4.9/5</div><div class="lbl">Valoración media de usuarios</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="tag">Precios</span>
+        <h2>Planes simples, sin sorpresas</h2>
+        <p>Empieza gratis y crece cuando lo necesites.</p>
+      </div>
+      <div class="pricing">
+        <div class="plan">
+          <h3>Starter</h3>
+          <div class="price">$0<span>/mes</span></div>
+          <p class="desc">Para empezar a organizar tus primeros clientes.</p>
+          <ul>
+            <li>Hasta 200 clientes</li>
+            <li>1 canal de redes sociales</li>
+            <li>Tienda con 3 productos digitales</li>
+            <li>Soporte por email</li>
+          </ul>
+          <a href="#" class="btn btn-ghost">Empezar gratis</a>
+        </div>
+        <div class="plan featured">
+          <h3>Pro</h3>
+          <div class="price">$29<span>/mes</span></div>
+          <p class="desc">Para equipos que ya venden todos los días.</p>
+          <ul>
+            <li>Clientes ilimitados</li>
+            <li>Todos los canales de redes sociales</li>
+            <li>Productos digitales ilimitados</li>
+            <li>Automatizaciones con IA</li>
+            <li>Analítica avanzada</li>
+          </ul>
+          <a href="#" class="btn btn-primary">Probar 14 días gratis</a>
+        </div>
+        <div class="plan">
+          <h3>Business</h3>
+          <div class="price">$79<span>/mes</span></div>
+          <p class="desc">Para negocios con varios equipos de venta.</p>
+          <ul>
+            <li>Todo lo del plan Pro</li>
+            <li>Roles y permisos por equipo</li>
+            <li>Integraciones personalizadas</li>
+            <li>Soporte prioritario 24/7</li>
+          </ul>
+          <a href="#" class="btn btn-ghost">Hablar con ventas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="cta">
+        <h2>Lleva tus redes sociales, ventas y clientes a un solo lugar</h2>
+        <p>Únete a los negocios que ya gestionan todo su ciclo de venta digital con Nexo CRM.</p>
+        <div class="cta-actions">
+          <a href="#" class="btn btn-primary btn-lg">Crear cuenta gratis</a>
+          <a href="#" class="btn btn-ghost btn-lg">Agendar una demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="logo-mark">N</span> Nexo CRM</div>
+        <p>El CRM que une la gestión de clientes, tu tienda digital y tus redes sociales en un mismo lugar.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Producto</h5>
+        <a href="#features">Funciones</a>
+        <a href="#pricing">Precios</a>
+        <a href="#steps">Cómo funciona</a>
+      </div>
+      <div class="foot-col">
+        <h5>Empresa</h5>
+        <a href="#">Sobre nosotros</a>
+        <a href="#">Blog</a>
+        <a href="#">Contacto</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Nexo CRM. Todos los derechos reservados.</span>
+      <span>Hecho con foco en clientes, ventas y redes sociales.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const links = document.querySelector('.nav-links');
+  toggle.addEventListener('click', () => {
+    const open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.cssText += open ? '' : 'position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;padding:20px 24px;border-bottom:1px solid #e8e6e1;gap:18px;';
+  });
+</script>
+
+</body>
+</html>

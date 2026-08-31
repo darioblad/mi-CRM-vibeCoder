@@ -1,0 +1,12 @@
+{
+  "name": "mi-crm-vibecoder",
+  "version": "1.0.0",
+  "description": "Landing page de Nexo CRM (gestion de clientes, e-commerce digital y captacion de leads en redes sociales)",
+  "private": true,
+  "scripts": {
+    "start": "serve -s . -l ${PORT:-3000}"
+  },
+  "dependencies": {
+    "serve": "^14.2.3"
+  }
+}
