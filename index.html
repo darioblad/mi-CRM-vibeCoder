@@ -227,10 +227,128 @@
     .foot-grid{grid-template-columns:1fr;}
     .logos-row{gap:28px;}
   }
+
+  /* ===== Accessibility: high-contrast theme (overrides design tokens) ===== */
+  html.a11y-contrast{
+    --bg:#000000; --surface:#0b0b0b; --border:#555560;
+    --text:#ffffff; --text-soft:#e8e8ea; --text-faint:#c7c7cc;
+    --accent:#ffd400; --accent-soft:#3a2f00;
+    --accent-2:#00e5c7; --accent-2-soft:#00332c;
+    --accent-3:#ff8a5c; --accent-3-soft:#3a1f10;
+  }
+  html.a11y-contrast header{background:#000 !important;border-bottom-color:#555 !important;}
+  html.a11y-contrast .btn-primary{background:var(--accent) !important;color:#000 !important;}
+  html.a11y-contrast .btn-ghost{background:transparent !important;color:#fff !important;border-color:#888 !important;}
+  html.a11y-contrast .stats{background:#000 !important;border:1px solid #666;}
+  html.a11y-contrast .plan.featured{border-color:var(--accent) !important;}
+  html.a11y-contrast .hero-visual,
+  html.a11y-contrast .feature-card,
+  html.a11y-contrast .plan,
+  html.a11y-contrast .step,
+  html.a11y-contrast .hv-card{border-color:#555 !important;}
+
+  /* ===== Accessibility: color filters (scoped to page content only) ===== */
+  html.a11y-grayscale #a11y-page{filter:grayscale(1);}
+  html.a11y-invert #a11y-page{filter:invert(1) hue-rotate(180deg);}
+
+  /* ===== Accessibility: reading & typography ===== */
+  html.a11y-readable-font #a11y-page,
+  html.a11y-readable-font #a11y-page *{
+    font-family:Verdana,Tahoma,"Trebuchet MS",Arial,sans-serif !important;
+  }
+  html.a11y-line-height #a11y-page,
+  html.a11y-line-height #a11y-page *{line-height:1.9 !important;}
+  html.a11y-letter-spacing #a11y-page,
+  html.a11y-letter-spacing #a11y-page *{letter-spacing:.09em !important;word-spacing:.12em !important;}
+  html.a11y-underline-links #a11y-page a{text-decoration:underline !important;text-underline-offset:3px;}
+  html.a11y-highlight-links #a11y-page a,
+  html.a11y-highlight-links #a11y-page button{
+    outline:2px solid #f5b301 !important;background:#fff59d !important;color:#000 !important;
+  }
+
+  /* ===== Accessibility: motion & pointer ===== */
+  html.a11y-reduce-motion *,
+  html.a11y-reduce-motion *::before,
+  html.a11y-reduce-motion *::after{
+    animation:none !important;transition:none !important;scroll-behavior:auto !important;
+  }
+  html.a11y-big-cursor,
+  html.a11y-big-cursor *{
+    cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24'><path d='M2 2 L2 20 L7 16 L10 22 L13 20.5 L10 14.5 L16 14.5 Z' fill='black' stroke='white' stroke-width='1.5'/></svg>") 2 2, auto !important;
+  }
+
+  /* ===== Accessibility widget UI ===== */
+  .a11y-fab{
+    position:fixed;right:22px;bottom:22px;z-index:9999;
+    width:56px;height:56px;border-radius:50%;
+    background:#1d4ed8;color:#fff;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px -4px rgba(0,0,0,.45);
+    transition:transform .15s ease;
+  }
+  .a11y-fab:hover{transform:scale(1.06);}
+  .a11y-fab:focus-visible,
+  .a11y-panel button:focus-visible{outline:3px solid #ffd400;outline-offset:2px;}
+  .a11y-fab svg{width:28px;height:28px;}
+  .a11y-panel{
+    position:fixed;right:22px;bottom:88px;z-index:9999;
+    width:328px;max-width:calc(100vw - 32px);max-height:min(640px,80vh);
+    background:#ffffff;color:#111214;border-radius:16px;
+    box-shadow:0 20px 50px -12px rgba(0,0,0,.45);
+    border:1px solid #e2e2e5;
+    display:flex;flex-direction:column;overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  .a11y-panel[hidden]{display:none;}
+  .a11y-panel-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 18px;border-bottom:1px solid #e2e2e5;background:#f6f6f8;
+  }
+  .a11y-panel-header h2{font-size:16px;margin:0;font-weight:700;}
+  .a11y-close{
+    background:none;border:none;cursor:pointer;font-size:18px;line-height:1;
+    padding:6px;border-radius:8px;color:#444;
+  }
+  .a11y-close:hover{background:#e8e8ec;}
+  .a11y-panel-body{padding:16px 18px 20px;overflow-y:auto;}
+  .a11y-group{margin-bottom:18px;}
+  .a11y-group-label{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#666;margin-bottom:10px;}
+  .a11y-btn-row{display:flex;gap:8px;}
+  .a11y-btn-row button{
+    flex:1;padding:9px 0;border-radius:9px;border:1px solid #d7d7dc;background:#fafafa;
+    cursor:pointer;font-weight:700;font-size:14px;color:#111;
+  }
+  .a11y-btn-row button:hover{background:#eee;}
+  .a11y-toggle-list{display:flex;flex-direction:column;gap:8px;}
+  .a11y-toggle-btn{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    width:100%;text-align:left;padding:10px 12px;border-radius:10px;
+    border:1px solid #d7d7dc;background:#fafafa;cursor:pointer;
+    font-size:13.5px;font-weight:600;color:#111;
+  }
+  .a11y-toggle-btn:hover{background:#eee;}
+  .a11y-toggle-btn[aria-pressed="true"]{background:#e7edff;border-color:#1d4ed8;color:#1d3a9e;}
+  .a11y-toggle-btn .a11y-dot{width:10px;height:10px;border-radius:50%;background:#c8c8ce;flex-shrink:0;}
+  .a11y-toggle-btn[aria-pressed="true"] .a11y-dot{background:#1d4ed8;}
+  .a11y-reset-all{
+    width:100%;margin-top:6px;padding:11px 0;border-radius:10px;border:none;
+    background:#111214;color:#fff;font-weight:700;cursor:pointer;font-size:13.5px;
+  }
+  .a11y-reset-all:hover{background:#000;}
+  #a11y-reading-guide{
+    position:fixed;left:0;right:0;height:38px;pointer-events:none;
+    background:rgba(255,214,0,.28);border-top:2px solid #f5b301;border-bottom:2px solid #f5b301;
+    z-index:9998;display:none;
+  }
+  @media (max-width:480px){
+    .a11y-panel{right:14px;left:14px;width:auto;bottom:82px;}
+    .a11y-fab{right:14px;bottom:14px;}
+  }
 </style>
 </head>
 <body>
 
+<div id="a11y-page">
 <header>
   <div class="wrap nav">
     <div class="logo">
@@ -528,6 +646,176 @@
     links.style.display = open ? 'none' : 'flex';
     links.style.cssText += open ? '' : 'position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;padding:20px 24px;border-bottom:1px solid #e8e6e1;gap:18px;';
   });
+</script>
+</div><!-- /a11y-page -->
+
+<!-- ACCESSIBILITY WIDGET -->
+<button id="a11y-toggle" class="a11y-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="a11y-panel" aria-label="Abrir opciones de accesibilidad">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="6.1" r="1.9" fill="#fff"/>
+    <path d="M4.5 8.6c2.4.9 5 1.35 7.5 1.35s5.1-.45 7.5-1.35" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M12 9.95v3.1l-2.3 7.1M12 13.05l2.3 7.15M12 13.05V9.95" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<div id="a11y-panel" class="a11y-panel" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
+  <div class="a11y-panel-header">
+    <h2 id="a11y-panel-title">Accesibilidad</h2>
+    <button id="a11y-close" class="a11y-close" type="button" aria-label="Cerrar panel de accesibilidad">✕</button>
+  </div>
+  <div class="a11y-panel-body">
+    <div class="a11y-group">
+      <span class="a11y-group-label" id="a11y-fontsize-label">Tamaño de texto</span>
+      <div class="a11y-btn-row" role="group" aria-labelledby="a11y-fontsize-label">
+        <button type="button" data-action="fontsize-dec" aria-label="Reducir tamaño de texto">A−</button>
+        <button type="button" data-action="fontsize-reset" aria-label="Restablecer tamaño de texto">A</button>
+        <button type="button" data-action="fontsize-inc" aria-label="Aumentar tamaño de texto">A+</button>
+      </div>
+    </div>
+
+    <div class="a11y-group">
+      <span class="a11y-group-label">Visión</span>
+      <div class="a11y-toggle-list">
+        <button type="button" class="a11y-toggle-btn" data-toggle="contrast" aria-pressed="false"><span class="a11y-dot"></span>Alto contraste</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="grayscale" aria-pressed="false"><span class="a11y-dot"></span>Escala de grises</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="invert" aria-pressed="false"><span class="a11y-dot"></span>Invertir colores</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="big-cursor" aria-pressed="false"><span class="a11y-dot"></span>Cursor grande</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="reading-guide" aria-pressed="false"><span class="a11y-dot"></span>Guía de lectura</button>
+      </div>
+    </div>
+
+    <div class="a11y-group">
+      <span class="a11y-group-label">Lectura</span>
+      <div class="a11y-toggle-list">
+        <button type="button" class="a11y-toggle-btn" data-toggle="readable-font" aria-pressed="false"><span class="a11y-dot"></span>Fuente legible</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="line-height" aria-pressed="false"><span class="a11y-dot"></span>Aumentar interlineado</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="letter-spacing" aria-pressed="false"><span class="a11y-dot"></span>Aumentar espaciado</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="underline-links" aria-pressed="false"><span class="a11y-dot"></span>Subrayar enlaces</button>
+        <button type="button" class="a11y-toggle-btn" data-toggle="highlight-links" aria-pressed="false"><span class="a11y-dot"></span>Resaltar enlaces y botones</button>
+      </div>
+    </div>
+
+    <div class="a11y-group">
+      <span class="a11y-group-label">Navegación</span>
+      <div class="a11y-toggle-list">
+        <button type="button" class="a11y-toggle-btn" data-toggle="reduce-motion" aria-pressed="false"><span class="a11y-dot"></span>Detener animaciones</button>
+      </div>
+    </div>
+
+    <button type="button" id="a11y-reset-all" class="a11y-reset-all">Restablecer todo</button>
+  </div>
+</div>
+
+<div id="a11y-reading-guide" aria-hidden="true"></div>
+
+<script>
+(function(){
+  const html = document.documentElement;
+  const page = document.getElementById('a11y-page');
+  const fab = document.getElementById('a11y-toggle');
+  const panel = document.getElementById('a11y-panel');
+  const closeBtn = document.getElementById('a11y-close');
+  const resetBtn = document.getElementById('a11y-reset-all');
+  const guide = document.getElementById('a11y-reading-guide');
+  const toggleBtns = Array.from(panel.querySelectorAll('[data-toggle]'));
+  const STORAGE_KEY = 'a11y-settings-v1';
+  const FS_STEPS = [0.85, 0.9, 1, 1.1, 1.2, 1.3, 1.5];
+  const DEFAULT_FS_INDEX = 2;
+
+  let state = { fontSizeIndex: DEFAULT_FS_INDEX, toggles: {} };
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
+        if(typeof parsed.fontSizeIndex === 'number') state.fontSizeIndex = parsed.fontSizeIndex;
+        if(parsed.toggles) state.toggles = parsed.toggles;
+      }
+    }catch(e){}
+  }
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  function applyFontSize(){
+    page.style.zoom = FS_STEPS[state.fontSizeIndex];
+  }
+
+  function applyToggle(name, on){
+    html.classList.toggle('a11y-' + name, !!on);
+    const btn = toggleBtns.find(b => b.dataset.toggle === name);
+    if(btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if(name === 'reading-guide'){
+      guide.style.display = on ? 'block' : 'none';
+    }
+  }
+
+  function applyAll(){
+    applyFontSize();
+    toggleBtns.forEach(btn => applyToggle(btn.dataset.toggle, !!state.toggles[btn.dataset.toggle]));
+  }
+
+  function onKeydown(e){ if(e.key === 'Escape') closePanel(); }
+  function onOutsideClick(e){
+    if(!panel.contains(e.target) && e.target !== fab && !fab.contains(e.target)) closePanel();
+  }
+
+  function openPanel(){
+    panel.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    const first = panel.querySelector('button, [href], input, select, textarea');
+    if(first) first.focus();
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('click', onOutsideClick, true);
+  }
+  function closePanel(){
+    panel.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onKeydown);
+    document.removeEventListener('click', onOutsideClick, true);
+    fab.focus();
+  }
+
+  fab.addEventListener('click', () => { panel.hidden ? openPanel() : closePanel(); });
+  closeBtn.addEventListener('click', closePanel);
+
+  panel.addEventListener('click', (e) => {
+    const actionBtn = e.target.closest('[data-action]');
+    if(actionBtn){
+      const action = actionBtn.dataset.action;
+      if(action === 'fontsize-inc') state.fontSizeIndex = Math.min(FS_STEPS.length - 1, state.fontSizeIndex + 1);
+      if(action === 'fontsize-dec') state.fontSizeIndex = Math.max(0, state.fontSizeIndex - 1);
+      if(action === 'fontsize-reset') state.fontSizeIndex = DEFAULT_FS_INDEX;
+      applyFontSize();
+      save();
+      return;
+    }
+    const toggleBtn = e.target.closest('[data-toggle]');
+    if(toggleBtn){
+      const name = toggleBtn.dataset.toggle;
+      const on = toggleBtn.getAttribute('aria-pressed') !== 'true';
+      state.toggles[name] = on;
+      applyToggle(name, on);
+      save();
+    }
+  });
+
+  resetBtn.addEventListener('click', () => {
+    state = { fontSizeIndex: DEFAULT_FS_INDEX, toggles: {} };
+    save();
+    applyAll();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if(html.classList.contains('a11y-reading-guide')){
+      guide.style.top = (e.clientY - 19) + 'px';
+    }
+  });
+
+  load();
+  applyAll();
+})();
 </script>
 
 </body>
